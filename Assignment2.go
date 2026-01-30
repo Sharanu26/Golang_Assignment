@@ -86,8 +86,8 @@ func main() {
 
 	fmt.Println("--------------------------------------------------------------")
 
-	initialSalary := 11000
-	empName := "Sharanu"
+	initialSalary := Employee1.EmployeeSalary
+	empName := Employee1.EmployeeName
 	deptIt.EmployeeList[empName] = &Employee{
 		EmployeeName:   empName,
 		EmployeeSalary: initialSalary,
@@ -105,6 +105,7 @@ func main() {
 	
 
 }
+
 
 
 
