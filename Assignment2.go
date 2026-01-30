@@ -44,9 +44,11 @@ func (d *Department) CalculateAvgSalary() int {
 
 //Give raise
 
-func (d *Department) GiveRaise(employeeName string, percentage int) {
-	if emp, e := d.EmployeeList[employeeName]; e {
-		emp.EmployeeSalary += emp.EmployeeSalary * (percentage / 100)
+func (d *Department) GiveRaise(EmployeeName string, percentage int) {
+	if emp, exists := d.EmployeeList[EmployeeName]; exists {
+		raiseAmount := float64(emp.EmployeeSalary) * (float64(percentage) / 100.0)
+		emp.EmployeeSalary += int(raiseAmount)
+		d.EmployeeList[EmployeeName] = emp
 	}
 }
 
@@ -68,20 +70,41 @@ func main() {
 	deptIt.AddEmployee(Employee2)
 	deptIt.AddEmployee(Employee3)
 
+	fmt.Println("--------------------------------------------------")
+
 	deptIt.ListEmployee()
+
+	fmt.Println("------------------------------------------------------------")
 
 	deptIt.RemoveEmployee("Sharanu")
 	fmt.Println("Removed_name Sharanu...........")
 	deptIt.ListEmployee()
 
+	fmt.Println("-----------------------------------------------------------------")
+
 	fmt.Println("Average Salary: ", deptIt.CalculateAvgSalary())
 
-	fmt.Println("Give Raise of 10% to Ketan") 
+	fmt.Println("--------------------------------------------------------------")
 
-	deptIt.GiveRaise("Ketan", 10)
+	initialSalary := 11000
+	empName := "Sharanu"
+	deptIt.EmployeeList[empName] = &Employee{
+		EmployeeName:   empName,
+		EmployeeSalary: initialSalary,
+	}
+
+	fmt.Printf("Before raise for %s: Salary is %d\n", empName, deptIt.EmployeeList[empName].EmployeeSalary)
+
+	raisePercent := 10
+	deptIt.GiveRaise(empName, raisePercent)
+
+	finalSalary := deptIt.EmployeeList[empName].EmployeeSalary
+
+	fmt.Printf("After %d%% raise for %s: Salary is %d\n", raisePercent, empName, finalSalary)
 
 	
 
 }
+
 
 
