@@ -76,12 +76,9 @@ func main() {
 
 	fmt.Println("Average Salary: ", deptIt.CalculateAvgSalary())
 
-	deptIt.GiveRaise("ketan", 10)
+	deptIt.GiveRaise("Ketan", 10)
 
-	fmt.Println("Remaining Employee")
-
-	for _, emp := range deptIt.EmployeeList {
-		fmt.Println(emp.EmployeeName, emp.EmployeeSalary)
-	}
+	
 
 }
+
