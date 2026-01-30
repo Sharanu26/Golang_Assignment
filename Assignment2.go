@@ -76,9 +76,12 @@ func main() {
 
 	fmt.Println("Average Salary: ", deptIt.CalculateAvgSalary())
 
+	fmt.Println("Give Raise of 10% to Ketan") 
+
 	deptIt.GiveRaise("Ketan", 10)
 
 	
 
 }
+
 
