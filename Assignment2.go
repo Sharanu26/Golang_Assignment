@@ -42,8 +42,7 @@ func (d *Department) CalculateAvgSalary() int {
 
 }
 
-//Give raise
-
+// Give raise
 func (d *Department) GiveRaise(EmployeeName string, percentage int) {
 	if emp, exists := d.EmployeeList[EmployeeName]; exists {
 		raiseAmount := float64(emp.EmployeeSalary) * (float64(percentage) / 100.0)
@@ -52,15 +51,17 @@ func (d *Department) GiveRaise(EmployeeName string, percentage int) {
 	}
 }
 
+// Displaying list of eployee
 func (d *Department) ListEmployee() {
 	for _, employe := range d.EmployeeList {
-		fmt.Println(employe.EmployeeName)
+		fmt.Println("Name: ", employe.EmployeeName, "Age: ", employe.EmployeeAge, "Salary: ", employe.EmployeeSalary)
 	}
 }
 
 func main() {
 
 	deptIt := Department{DepartmentName: "IT"}
+	fmt.Println("Department: ", deptIt.DepartmentName)
 
 	Employee1 := Employee{EmployeeName: "Sharanu", EmployeeAge: 22, EmployeeSalary: 11000}
 	Employee2 := Employee{EmployeeName: "Ketan", EmployeeAge: 23, EmployeeSalary: 12000}
@@ -70,19 +71,17 @@ func main() {
 	deptIt.AddEmployee(Employee2)
 	deptIt.AddEmployee(Employee3)
 
-	fmt.Println("--------------------------------------------------")
-
 	deptIt.ListEmployee()
 
 	fmt.Println("------------------------------------------------------------")
 
 	deptIt.RemoveEmployee("Sharanu")
-	fmt.Println("Removed_name Sharanu...........")
+	fmt.Println("Removed_Employee Sharanu from Department IT...........")
 	deptIt.ListEmployee()
 
 	fmt.Println("-----------------------------------------------------------------")
 
-	fmt.Println("Average Salary: ", deptIt.CalculateAvgSalary())
+	fmt.Println("Average Salary of Employees: ", deptIt.CalculateAvgSalary())
 
 	fmt.Println("--------------------------------------------------------------")
 
@@ -102,9 +101,8 @@ func main() {
 
 	fmt.Printf("After %d%% raise for %s: Salary is %d\n", raisePercent, empName, finalSalary)
 
-	
-
 }
+
 
 
 
