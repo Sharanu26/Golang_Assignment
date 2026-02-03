@@ -1,3 +1,10 @@
+/* Task 1 :-
+   create the Person class using a struct
+   in Go to represent individuals with attributes
+   like name, age, and methods to introduce themselves,
+   update their age, and check if they are eligible to vote. */
+
+
 package main
 
 import "fmt"
@@ -35,3 +42,20 @@ func main() {
 	Person.Introduction()
 
 }
+
+
+/*
+-------Personal Profile System--------
+Introduction :-
+My name is sharanu and My age is 22.   
+---------------------------------------
+Who is Eligible to vote :-
+sharanu is eligible to vote.
+---------------------------------------
+Persent Age of Person :-
+22
+Updated Age of Person
+26
+
+*/
+
