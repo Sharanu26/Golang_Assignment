@@ -5,28 +5,29 @@ import (
 )
 
 type Employee struct {
-	EmployeeName   string
-	EmployeeAge    int
-	EmployeeSalary int
+	Id     int
+	Name   string
+	Age    int
+	Salary int
 }
 
 type Department struct {
 	DepartmentName string
-	EmployeeList   map[string]*Employee
+	EmployeeList   map[int]*Employee
 }
 
 // adding Employee
 func (d *Department) AddEmployee(e Employee) {
 	//initialize map
 	if d.EmployeeList == nil {
-		d.EmployeeList = make(map[string]*Employee)
+		d.EmployeeList = make(map[int]*Employee)
 	}
-	d.EmployeeList[e.EmployeeName] = &e
+	d.EmployeeList[e.Id] = &e
 }
 
 // Removing Employee
-func (d *Department) RemoveEmployee(employeeName string) {
-	delete(d.EmployeeList, employeeName)
+func (d *Department) RemoveEmployee(Id int) {
+	delete(d.EmployeeList, Id)
 }
 
 // Calculating Avg Salary
@@ -36,25 +37,25 @@ func (d *Department) CalculateAvgSalary() int {
 	}
 	var totalSalary int
 	for _, em := range d.EmployeeList {
-		totalSalary += em.EmployeeSalary
+		totalSalary += em.Salary
 	}
 	return totalSalary / int(len(d.EmployeeList))
 
 }
 
 // Give raise
-func (d *Department) GiveRaise(EmployeeName string, percentage int) {
-	if emp, exists := d.EmployeeList[EmployeeName]; exists {
-		raiseAmount := float64(emp.EmployeeSalary) * (float64(percentage) / 100.0)
-		emp.EmployeeSalary += int(raiseAmount)
-		d.EmployeeList[EmployeeName] = emp
+func (d *Department) GiveRaise(EmployeeId int, percentage int) {
+	if emp, exists := d.EmployeeList[EmployeeId]; exists {
+		raiseAmount := float64(emp.Salary) * (float64(percentage) / 100.0)
+		emp.Salary += int(raiseAmount)
+		d.EmployeeList[EmployeeId] = emp
 	}
 }
 
 // Displaying list of eployee
 func (d *Department) ListEmployee() {
 	for _, employe := range d.EmployeeList {
-		fmt.Println("Name: ", employe.EmployeeName, "Age: ", employe.EmployeeAge, "Salary: ", employe.EmployeeSalary)
+		fmt.Println("ID: ", employe.Id, "Name: ", employe.Name, "||", "Age: ", employe.Age, "||", "Salary: ", employe.Salary)
 	}
 }
 
@@ -63,9 +64,9 @@ func main() {
 	deptIt := Department{DepartmentName: "IT"}
 	fmt.Println("Department: ", deptIt.DepartmentName)
 
-	Employee1 := Employee{EmployeeName: "Sharanu", EmployeeAge: 22, EmployeeSalary: 11000}
-	Employee2 := Employee{EmployeeName: "Ketan", EmployeeAge: 23, EmployeeSalary: 12000}
-	Employee3 := Employee{EmployeeName: "Shiv", EmployeeAge: 34, EmployeeSalary: 15000}
+	Employee1 := Employee{Id: 102, Name: "Sharanu", Age: 22, Salary: 11000}
+	Employee2 := Employee{Id: 103, Name: "Ketan", Age: 23, Salary: 12000}
+	Employee3 := Employee{Id: 104, Name: "Shiv", Age: 34, Salary: 15000}
 
 	deptIt.AddEmployee(Employee1)
 	deptIt.AddEmployee(Employee2)
@@ -75,8 +76,8 @@ func main() {
 
 	fmt.Println("------------------------------------------------------------")
 
-	deptIt.RemoveEmployee("Sharanu")
-	fmt.Println("Removed_Employee Sharanu from Department IT...........")
+	deptIt.RemoveEmployee(Employee2.Id)
+	fmt.Printf("Removed_Employee_id %d from Department IT.............\n", Employee2.Id)
 	deptIt.ListEmployee()
 
 	fmt.Println("-----------------------------------------------------------------")
@@ -85,23 +86,47 @@ func main() {
 
 	fmt.Println("--------------------------------------------------------------")
 
-	initialSalary := Employee1.EmployeeSalary
-	empName := Employee1.EmployeeName
-	deptIt.EmployeeList[empName] = &Employee{
-		EmployeeName:   empName,
-		EmployeeSalary: initialSalary,
+	initialSalary := Employee1.Salary
+	empId := Employee1.Id
+	deptIt.EmployeeList[empId] = &Employee{
+		Id:     empId,
+		Salary: initialSalary,
 	}
 
-	fmt.Printf("Before raise for %s: Salary is %d\n", empName, deptIt.EmployeeList[empName].EmployeeSalary)
+	fmt.Printf("Before raise for Employee Id:%d Salary is %d\n", empId, deptIt.EmployeeList[empId].Salary)
 
 	raisePercent := 10
-	deptIt.GiveRaise(empName, raisePercent)
+	deptIt.GiveRaise(empId, raisePercent)
 
-	finalSalary := deptIt.EmployeeList[empName].EmployeeSalary
+	finalSalary := deptIt.EmployeeList[empId].Salary
 
-	fmt.Printf("After %d%% raise for %s: Salary is %d\n", raisePercent, empName, finalSalary)
+	fmt.Printf("After %d%% raise for Employee Id: %d: Salary is %d \n", raisePercent, empId, finalSalary)
 
 }
+
+
+
+/*
+Output :-
+
+Department:  IT
+ID:  102 Name:  Sharanu || Age:  22 || Salary:  11000
+ID:  103 Name:  Ketan || Age:  23 || Salary:  12000
+ID:  104 Name:  Shiv || Age:  34 || Salary:  15000
+------------------------------------------------------------     
+Removed_Employee_id 103 from Department IT.............
+ID:  102 Name:  Sharanu || Age:  22 || Salary:  11000
+ID:  104 Name:  Shiv || Age:  34 || Salary:  15000
+-----------------------------------------------------------------
+Average Salary of Employees:  13000
+--------------------------------------------------------------
+Before raise for Employee Id:102 Salary is 11000
+After 10% raise for Employee Id: 102: Salary is 12100
+
+*/
+
+
+	
 
 
 
