@@ -14,10 +14,12 @@ type Person struct {
 	age  int
 }
 
+//Introducing
 func (p Person) Introduction() {
 	fmt.Printf("My name is %s and My age is %d.\n", p.name, p.age)
 }
 
+//Updating Age
 func (p *Person) UpdateAge(newAge int) {
 	if newAge > p.age {
 		p.age = newAge
@@ -25,6 +27,7 @@ func (p *Person) UpdateAge(newAge int) {
 
 }
 
+//To check is Eligible to Votes
 func (p Person) isEligibleToVote() {
 	if p.age >= 18 {
 		fmt.Printf("%s is eligible to vote.\n", p.name)
@@ -32,7 +35,7 @@ func (p Person) isEligibleToVote() {
 		fmt.Printf("%s is not eligible to vote. \n", p.name)
 	}
 }
-
+//main
 func main() {
 	Person := Person{name: "sharanu", age: 22}
 	Person.Introduction()
@@ -58,4 +61,5 @@ Updated Age of Person
 26
 
 */
+
 
